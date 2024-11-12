@@ -1,7 +1,40 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { signOut } from "firebase/auth";
+import { auth } from '../Configs/firebaseconfig';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const Navbar = () => {
+  
+  const [userCheck , setUserCheck] = useState(false)
+  const navigate = useNavigate()
+
+
+  useEffect(()=>{
+    
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+      const uid = user.uid;
+      // ...
+      console.log (user.uid)
+      setUserCheck (false)
+    } else {
+      setUserCheck (true)
+  }
+  });
+
+  } , [])
+
+  const SignOutUser = ()=> {
+
+    signOut(auth).then(() => {
+     // Sign-out successful.
+     navigate ('/')
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
+  
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -10,7 +43,8 @@ const Navbar = () => {
   </div>
   <div className="flex-none">
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button">
+      {userCheck ? <button onClick={()=>navigate ('login')} className="btn btn-primary">Login</button> :<>
+        <div tabIndex={0} role="button">
         <div>
           <p>Muhammad Talal</p>
         </div>
@@ -26,13 +60,11 @@ const Navbar = () => {
         <li><Link to={'dashboard'} className="justify-between">
             Dashboard
         </Link></li>
-        <li><Link to={'login'} className="justify-between">
-            Login
-        </Link></li>
-        <li><Link to={'signup'} className="justify-between">
-            Signup
-        </Link></li>
+        <li><a onClick={SignOutUser} className="justify-between">
+            Signout
+        </a></li>
       </ul>
+      </>}
     </div>
   </div>
 </div>

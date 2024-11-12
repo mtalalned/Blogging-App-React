@@ -8,6 +8,7 @@ import Signup from './Pages/Signup.jsx'
 import Dashboard from './Pages/Dashboard.jsx'
 import Profile from './Pages/Profile.jsx'
 import SingleUser from './Pages/SingleUser.jsx'
+import ProtectedRoutes from './components/ProtectedRoutes.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,11 +29,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: <Dashboard />,
+        element: <ProtectedRoutes  component={<Dashboard />}/>,
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: <ProtectedRoutes  component={<Profile />}/>,
       },
       {
         path: '/user/:id',
