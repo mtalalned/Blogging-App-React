@@ -16,7 +16,6 @@ const Navbar = () => {
       if (user) {
       const uid = user.uid;
       // ...
-      console.log (user.uid)
       setUserCheck (false)
     } else {
       setUserCheck (true)

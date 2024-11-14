@@ -1,6 +1,9 @@
 import React, { useRef, useState } from 'react'
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword , signOut} from "firebase/auth";
 import { auth } from '../Configs/firebaseconfig';
+import { db } from '../Configs/firebaseconfig';
+import { collection, addDoc } from "firebase/firestore"; 
+
 
 const Signup = () => {
   
@@ -10,7 +13,7 @@ const Signup = () => {
   const password = useRef()
   const repeatPassword = useRef()
   const [loader , setLoader] = useState(false)
-
+  
   const signUpUser = (event) => {
     
     // prevent Default
@@ -22,23 +25,34 @@ const Signup = () => {
     // Firebase Signup 
     if (password.current.value === repeatPassword.current.value && emailRegex.test(email.current.value)){
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed up 
         const user = userCredential.user;
         // ...
+
+        // Add a new document with a generated id.
+        const docRef = await addDoc(collection(db, "users"), {
+          firstName: firstName.current.value,
+          lastName: lastName.current.value,
+          uid: auth.currentUser.uid,
+          email: email.current.value,
+        });
+        console.log("Document written with ID: ", docRef.id);
+        setLoader(false)
+        email.current.value = ''
+        firstName.current.value = ''
+        lastName.current.value = ''
+        password.current.value = ''
+        repeatPassword.current.value = ''
+        alert('Registration Successfull')
+        await signOut(auth);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..
       });
-      setLoader(false)
-      email.current.value = ''
-      firstName.current.value = ''
-      lastName.current.value = ''
-      password.current.value = ''
-      repeatPassword.current.value = ''
-      alert('Registration Successfull')
+
     } else if (!emailRegex.test(email.current.value)){
       alert('Wrong email')
     } else {
