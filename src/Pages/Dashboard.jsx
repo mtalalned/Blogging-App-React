@@ -101,6 +101,8 @@ const Dashboard = () => {
         uid: auth.currentUser.uid,
         postingTime: Timestamp.now(),
         postingDay: getDate(),
+        firstName: userObj.firstName,
+        lastName: userObj.lastName,
       });
         console.log("Document written with ID: ", docRef.id);
         
@@ -111,6 +113,8 @@ const Dashboard = () => {
           uid: auth.currentUser.uid,
           postingTime: Timestamp.now(),
           postingDay: getDate(),
+          firstName: userObj.firstName,
+          lastName: userObj.lastName,
         })
         setBlogArray([...blogArray])
         title.current.value = ''
@@ -201,7 +205,7 @@ const Dashboard = () => {
 
       <div className='flex flex-col justify-center gap-5 w-full'>
         <h1 className='text-2xl text-start font-bold'>My blogs</h1>
-        {mainLoader ? <span className="loading loading-spinner loading-md"></span> : blogArray.map ((items , index)=> {
+        {mainLoader ? <span className="loading loading-spinner loading-md"></span> : blogArray.length > 0 ? blogArray.map ((items , index)=> {
           return <div key={items.docid} className='w-full border'>
             <p>{items.title}</p>
             <p>{userObj.firstName}{' '}{userObj.lastName}</p>
@@ -209,7 +213,7 @@ const Dashboard = () => {
             <p className='break-words'>{items.blog}</p>
             <button onClick={()=> openDeleteModal(items.docid , index)} className='btn btn-primary'>Delete</button>
             <button onClick={()=> openUpdateModal(items.docid ,index)} className='btn btn-error'>Edit</button>
-          </div>})
+          </div>}) : <div>No data post something</div>
           }
       </div>
     </div>

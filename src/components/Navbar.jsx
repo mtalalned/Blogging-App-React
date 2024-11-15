@@ -3,19 +3,47 @@ import { Link, useNavigate } from 'react-router-dom'
 import { signOut } from "firebase/auth";
 import { auth } from '../Configs/firebaseconfig';
 import { onAuthStateChanged } from 'firebase/auth';
+import { query, where, getDocs , orderBy} from "firebase/firestore";
+import { db } from '../Configs/firebaseconfig';
+import { collection } from 'firebase/firestore';
 
 const Navbar = () => {
   
   const [userCheck , setUserCheck] = useState(false)
   const navigate = useNavigate()
+  const [userObj , setUserObj] = useState({})
+  const [mainLoader , setMainLoader] = useState(true)
 
 
+    
+    const getDatafromFirestore = async () => {
+      
+      setMainLoader(true)
+
+      try {
+        const q = query(collection(db, "users"), where("uid", "==", auth.currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => { 
+          console.log (doc.data())
+          setUserObj({...doc.data()})
+        }); 
+      }
+      catch (error ){
+        console.log (error + 'unable to get data from firestore')
+      }
+      finally {
+        setMainLoader(false)
+      }
+    }
+  
+  
   useEffect(()=>{
     
     onAuthStateChanged(auth, (user) => {
       if (user) {
-      const uid = user.uid;
-      // ...
+        const uid = user.uid;
+        getDatafromFirestore();
+        // ...
       setUserCheck (false)
     } else {
       setUserCheck (true)
@@ -45,7 +73,7 @@ const Navbar = () => {
       {userCheck ? <button onClick={()=>navigate ('login')} className="btn btn-primary">Login</button> :<>
         <div tabIndex={0} role="button">
         <div>
-          <p>Muhammad Talal</p>
+          <p>{mainLoader ? <span className="loading loading-spinner loading-md"></span> : userObj.firstName + ' ' + userObj.lastName}</p>
         </div>
       </div>
       <ul
