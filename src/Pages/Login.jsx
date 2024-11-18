@@ -38,13 +38,18 @@ const Login = () => {
   
   return (
     <div>
-      <h1 className='text-2xl text-center m-5'>Login</h1>
-      <form onSubmit={SignInUser} className='flex flex-col gap-5 justify-center items-center'>
-        <input type="text" placeholder="Email" className="input input-bordered w-full max-w-xs" ref={email} required/>
-        <input type="password" placeholder="Password" className="input input-bordered w-full max-w-xs" ref={password} required/>
-        <button type='submit' className="btn btn-primary">{loader ? <span className="loading loading-spinner loading-md"></span> : 'Login'}</button>
+      <h1 className='text-2xl text-center m-4 text-start ms-[8%] font-bold'>Login</h1>
+      <div className='bg-[#f8f9fa] flex justify-center items-center min-h-[80vh]'>
+      <form onSubmit={SignInUser} className='flex flex-col gap-5 justify-center items-center bg-[#ffffff] w-[40%] min-w-[300px] min-h-[40vh] rounded-lg shadow-lg'>
+        <input type="text" placeholder="Email" className="input input-bordered min-w-[275px] focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" ref={email} required/>
+        <input type="password" placeholder="Password" className="input input-bordered min-w-[275px] focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" ref={password} required/>
+        <div className='flex gap-3 justify-center items-center'>
+        <button type='submit' className="bg-[#7749f8] text-white rounded-lg p-3">{loader ? <span className="loading loading-spinner loading-md"></span> : 'Login'}</button>
+        <p className='text-[#7749f8]'>OR</p>
+        <button onClick={()=>{navigate('/signup')}} className="bg-[#7749f8] text-white rounded-lg p-3">Signup</button>
+        </div>
       </form>
-      <button onClick={()=>{navigate('/signup')}} className="btn btn-primary">Signup</button>
+      </div>
     </div>
   )
 }

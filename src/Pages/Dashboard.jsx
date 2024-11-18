@@ -195,24 +195,38 @@ const Dashboard = () => {
 
   return (
     <>
-    <div className='flex flex-col justify-center items-center'>
+    <h1 className='text-2xl text-center m-4 text-start ms-[8%] font-bold'>Dashboard</h1>
+    <div className='flex flex-col justify-center items-start bg-[#f8f9fa] py-[35px] ps-[15px] min-[400px]:ps-[50px] min-[600px]:ps-[112px]'>
 
-      <form onSubmit={addBlog} className='flex flex-col justify-center items-center gap-4'>
-        <input type="text" placeholder="Title" className="input input-bordered" minLength={5} maxLength={50} ref={title}/>
-        <textarea className="textarea textarea-bordered" placeholder="Post your blog" minLength={100} maxLength={3000} ref={blog}></textarea>
-        <button type='submit' className="btn btn-primary">{loader ? <span className="loading loading-spinner loading-md"></span> : 'Publish Blog'}</button>
-      </form>
+      <div className='flex flex-col gap-5 justify-center items-start px-5 min-[450px]:px-[65px] py-7 bg-[#ffffff] w-[95%] min-[400px]:w-[85%] min-[900px]:w-[70%] min-w-[300px] min-h-[40vh] rounded-lg shadow-lg'>
+          <form onSubmit={addBlog} className='flex w-full flex-col justify-center items-start gap-4'>
+            <input type="text" placeholder="Title" className="w-full input input-bordered focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" minLength={5} maxLength={50} required ref={title}/>
+            <textarea className="textarea textarea-bordered w-full focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" placeholder="What is in your mind" minLength={100} maxLength={3000} ref={blog} required></textarea>
+            <button type='submit' className="bg-[#7749f8] text-white rounded-lg py-2 px-6">{loader ? <span className="loading loading-spinner loading-md"></span> : 'Publish Blog'}</button>
+          </form>
+      </div>
 
-      <div className='flex flex-col justify-center gap-5 w-full'>
-        <h1 className='text-2xl text-start font-bold'>My blogs</h1>
-        {mainLoader ? <span className="loading loading-spinner loading-md"></span> : blogArray.length > 0 ? blogArray.map ((items , index)=> {
-          return <div key={items.docid} className='w-full border'>
-            <p>{items.title}</p>
-            <p>{userObj.firstName}{' '}{userObj.lastName}</p>
-            <p>{items.postingDay}</p>
-            <p className='break-words'>{items.blog}</p>
-            <button onClick={()=> openDeleteModal(items.docid , index)} className='btn btn-primary'>Delete</button>
-            <button onClick={()=> openUpdateModal(items.docid ,index)} className='btn btn-error'>Edit</button>
+        <h1 className='text-2xl text-start font-bold mt-10 mb-6'>My blogs</h1>
+
+      <div className='flex flex-col gap-5 justify-start items-start w-[80%] min-[400px]:w-[85%] min-[900px]:w-[70%]'>
+        {mainLoader ? <div className='text-center w-full mt-5'><span className="loading loading-spinner loading-lg text-[#7749f8]"></span></div>: blogArray.length > 0 ? blogArray.map ((items , index)=> {
+          return <div key={items.docid} className='flex w-[100%] px-7 py-5 flex-col bg-[#ffffff] justify-center items-start gap-4 rounded-lg shadow-lg  min-h-[40vh] min-w-[300px]'>
+            <div className='flex justify-start items-start gap-4 w-full pe-5'>
+              <div className='text-white bg-[#7749f8] rounded-lg p-5 flex justify-center items-center'>
+                img
+              </div>
+              <div className='flex flex-col justify-start items-start w-[80%]'>
+                <p className='font-bold text-2xl w-full border break-words'>{items.title}</p>
+                <p className='text-sm text-[#747779] font-bold'>{userObj.firstName}{' '}{userObj.lastName} - {items.postingDay}</p>
+              </div>
+            </div>
+            <div className='break-words w-full'>
+              <p className='break-words text-[#7f868d]'>{items.blog}</p>
+            </div>
+            <div className='flex justify-start gap-1'>
+              <button onClick={()=> openDeleteModal(items.docid , index)} className='hover:bg-[#dadcde] text-[#7749f8] rounded-lg px-3 py-1'>Delete</button>
+              <button onClick={()=> openUpdateModal(items.docid ,index)} className='hover:bg-[#dadcde] text-[#7749f8] rounded-lg px-3 py-1'>Edit</button>
+            </div>
           </div>}) : <div>No data post something</div>
           }
       </div>

@@ -65,15 +65,17 @@ const Signup = () => {
   
   return (
     <div>
-      <h1 className='text-2xl text-center m-5'>Signup</h1>
-      <form onSubmit={signUpUser} className='flex flex-col gap-5 justify-center items-center'>
-      <input type="text" placeholder="First Name" className="input input-bordered w-full max-w-xs" ref={firstName} required minLength={3}/>
-      <input type="text" placeholder="Last Name" className="input input-bordered w-full max-w-xs" ref={lastName} required minLength={1} maxLength={20}/>
-      <input type="text" placeholder="Email" className="input input-bordered w-full max-w-xs" ref={email} required/>
-      <input type="password" placeholder="Password" className="input input-bordered w-full max-w-xs" ref={password} required pattern=".*" minLength={8}/>
-      <input type="password" placeholder="Repeat Password" className="input input-bordered w-full max-w-xs" ref={repeatPassword} required pattern=".*" minLength={8}/>
-      <button type='submit' className="btn btn-primary">{loader ? <span className="loading loading-spinner loading-md"></span> : 'Signup'}</button>
-    </form>
+      <h1 className='text-2xl text-center m-4 text-start ms-[8%] font-bold'>Signup</h1>
+      <div className='bg-[#f8f9fa] flex justify-center items-center min-h-[80vh]'>
+        <form onSubmit={signUpUser} className='flex flex-col gap-3 py-5 justify-center items-center bg-[#ffffff] w-[40%] min-w-[300px] min-h-[40vh] rounded-lg shadow-lg'>
+          <input type="text" placeholder="First Name" className="input input-bordered min-w-[275px] focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" ref={firstName} required minLength={3}/>
+          <input type="text" placeholder="Last Name" className="input input-bordered min-w-[275px] focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" ref={lastName} required minLength={1} maxLength={20}/>
+          <input type="text" placeholder="Email" className="input input-bordered min-w-[275px] focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" ref={email} required/>
+          <input type="password" placeholder="Password" className="input input-bordered min-w-[275px] focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" ref={password} required pattern=".*" minLength={8}/>
+          <input type="password" placeholder="Repeat Password" className="input input-bordered min-w-[275px] focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa]" ref={repeatPassword} required pattern=".*" minLength={8}/>
+          <button type='submit' className="bg-[#7749f8] text-white rounded-lg p-3">{loader ? <span className="loading loading-spinner loading-md"></span> : 'Signup'}</button>
+        </form>
+      </div>
   </div>
   )
 }
