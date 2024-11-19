@@ -218,7 +218,7 @@ const Dashboard = () => {
                 img
               </div>
               <div className='flex flex-col justify-start items-start w-[80%]'>
-                <p className='font-bold text-2xl w-full border break-words'>{items.title}</p>
+                <p className='font-bold text-2xl w-full break-words'>{items.title}</p>
                 <p className='text-sm text-[#747779] font-bold'>{userObj.firstName}{' '}{userObj.lastName} - {items.postingDay}</p>
               </div>
             </div>
@@ -229,7 +229,9 @@ const Dashboard = () => {
               <button onClick={()=> openDeleteModal(items.docid , index)} className='hover:bg-[#dadcde] text-[#7749f8] rounded-lg px-3 py-1'>Delete</button>
               <button onClick={()=> openUpdateModal(items.docid ,index)} className='hover:bg-[#dadcde] text-[#7749f8] rounded-lg px-3 py-1'>Edit</button>
             </div>
-          </div>}) : <div>No data post something</div>
+          </div>}) : <div className='flex w-[100%] px-7 py-5 flex-col bg-[#ffffff] justify-center items-start gap-4 rounded-lg shadow-lg  min-h-[40vh] min-w-[300px]'>
+            <h1 className='text-2xl text-[#7749f8] m-4 text-start ms-[8%] font-bold'>Post your blogs right now !!</h1>
+        </div>
           }
       </div>
     </div>

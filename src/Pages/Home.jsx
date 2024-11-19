@@ -3,13 +3,14 @@ import { collection, getDocs , orderBy } from "firebase/firestore";
 import { auth, db } from '../Configs/firebaseconfig';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
+import ErrorFetchingData from '../components/ErrorFetchingData';
 
 const Home = () => {
   
   const [loader , setLoader] = useState(false)
   const [allblogArray , setAllBlogArray] = useState([])
   const navigate = useNavigate()
-  // const [userObj , setUserObj] = useState()
+  const [errorModal , setErrorModal] = useState(false)
   
   
   useEffect(() => {
@@ -28,6 +29,7 @@ const Home = () => {
         });
       } catch (error) {
         console.log("Error getting documents:", error);
+        setErrorModal(true)
       } finally {
         setLoader (false)
       }
@@ -92,7 +94,7 @@ const swithToUserPage = (uidforSingleUser) => {
                 img
               </div>
               <div className='flex flex-col justify-start items-start w-[80%]'>
-                <p className='font-bold text-2xl w-full border break-words'>{items.title}</p>
+                <p className='font-bold text-2xl w-full break-words'>{items.title}</p>
                 <p className='text-sm text-[#747779] font-bold'>{items.firstName}{' '}{items.lastName} - {items.postingDay}</p>
               </div>
             </div>
@@ -104,12 +106,14 @@ const swithToUserPage = (uidforSingleUser) => {
               
             </div>
           </div>
-      }) : <div>No one has posted yet</div>}
+      }) : <div className='flex w-[100%] px-7 py-5 flex-col bg-[#ffffff] justify-center items-start gap-4 rounded-lg shadow-lg  min-h-[40vh] min-w-[300px]'>
+            <h1 className='text-2xl text-[#7749f8] m-4 text-start ms-[8%] font-bold'>Be the first to post something interesting !!!</h1>
+        </div>}
             
           </div>
-      
     </div>
     
+    {errorModal && <ErrorFetchingData />}
     </>
   )
 }
