@@ -128,15 +128,17 @@ const Dashboard = () => {
 
 
 
-  function getDate (){
+  function getDate() {
     const date = new Date();
-    const formattedDate = new Intl.DateTimeFormat('en-GB', {
-      weekday: 'long',
-      day: 'numeric', 
-      year: 'numeric',
-    }).format(date);
-    return formattedDate
+    const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric' }).format(date);
+    const month = new Intl.DateTimeFormat('en-GB', { month: 'long' }).format(date);
+    const year = new Intl.DateTimeFormat('en-GB', { year: 'numeric' }).format(date);
+  
+    // Combine all parts with a comma after the day
+    const formattedDate = `${month} ${day}, ${year}`;
+    return formattedDate;
   }
+  
 
 
   const openDeleteModal = (docid , index) => {

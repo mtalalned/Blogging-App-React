@@ -66,7 +66,7 @@ const Navbar = () => {
     <div>
       <div className="navbar bg-[#7749f8]">
   <div className="flex-1">
-    <Link to={'/'} className=" text-[1rem] text-white font-bold rounded min-[480px]:mx-5 hover:bg-[#ffffff] hover:text-[#7749f8] px-5 py-1">Personal Blogging App</Link>
+    <Link to={'/'} className=" text-[1rem] text-white font-bold rounded min-[480px]:ms-[7.2%] hover:bg-[#ffffff] hover:text-[#7749f8] px-5 py-1">Personal Blogging App</Link>
   </div>
   <div className="flex-none">
     <div className="dropdown dropdown-end">
