@@ -11,6 +11,8 @@ const Profile = () => {
   const repeatnewpassword = useRef()
   const [userObj , setUserObj] = useState({})
   const [mainLoader , setMainLoader] = useState(false)
+  const [loader , setLoader] = useState(false)
+
   
   useEffect(()=>{
     
@@ -44,12 +46,15 @@ const Profile = () => {
   }, [])
 
 
-  const updateUserPassword = (evemt) => {
+  const updateUserPassword = (event) => {
 
     event.preventDefault()
 
+    setLoader(true)
+
     if (newpassword.current.value === repeatnewpassword.current.value) {
       const user = auth.currentUser;
+
       const newPassword = repeatnewpassword.current.value;
 
       updatePassword(user, newPassword).then(() => {
@@ -57,13 +62,16 @@ const Profile = () => {
         console.log('Password update')
         newpassword.current.value = ''
         repeatnewpassword.current.value = ''
+        setLoader(false)
       }).catch((error) => {
         // An error ocurred
         // ...
         console.log ('Password update failed')
+        setLoader(false)
       });
     } else {
       console.log ('password mismatch')
+      setLoader(false)
     }
   }
   
@@ -81,7 +89,7 @@ const Profile = () => {
         <form onSubmit={()=>updateUserPassword(event)} className='flex flex-col justify-center items-start gap-5'>
           <input type="password" placeholder="New Password" className="w-full input input-bordered focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa] min-w-[300px]" ref={newpassword} required/>
           <input type="password" placeholder="Repeat Password" className="w-full input input-bordered focus:ring-2 focus:ring-[#7749f8] focus:ring-offset-1 focus:ring-offset-[#f8f9fa] min-w-[300px]" ref={repeatnewpassword} required/>
-          <button type='submit' className="bg-[#7749f8] text-white rounded-lg p-3">Update Password</button>
+          <button type='submit' className="bg-[#7749f8] text-white rounded-lg p-3">{loader ? <span className="loading loading-spinner loading-md"></span> : 'Update Password'}</button>
         </form>
         </div>
       </div>
