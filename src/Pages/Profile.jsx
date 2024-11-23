@@ -3,6 +3,8 @@ import { auth , db } from '../Configs/firebaseconfig'
 import { query, where, getDocs , orderBy} from "firebase/firestore";
 import { collection } from 'firebase/firestore';
 import { updatePassword } from 'firebase/auth';
+import userimage from '../assets/user.png'
+
 
 
 const Profile = () => {
@@ -83,7 +85,8 @@ const Profile = () => {
     <div className='flex flex-col justify-center items-start bg-[#f8f9fa] py-[35px] ps-[15px] min-[400px]:ps-[50px] min-[600px]:ps-[112px]'>
 
       <div className='flex w-[750px] ps-[50px] py-5 flex-col bg-[#ffffff] justify-start items-start gap-4 rounded-lg shadow-lg  min-h-[80vh] min-w-[300px]'>
-        <h1 className='text-3xl font-bold text-[#7749f8]'>{mainLoader ? <span className="loading loading-spinner loading-md text-[#7749f8]"></span> : userObj.firstName+' '+userObj.lastName}</h1>
+        <img src={userimage} alt="logo" className='w-[250px] bg-[#7749f8] rounded-lg'/>
+        <h1 className='text-3xl font-bold text-[black]'>{mainLoader ? <span className="loading loading-spinner loading-md text-[#7749f8]"></span> : userObj.firstName+' '+userObj.lastName}</h1>
         <h2 className='text-xl font-bold text-[#7749f8]'>Password</h2>
         <div >
         <form onSubmit={()=>updateUserPassword(event)} className='flex flex-col justify-center items-start gap-5'>

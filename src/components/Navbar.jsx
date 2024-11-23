@@ -24,7 +24,6 @@ const Navbar = () => {
         const q = query(collection(db, "users"), where("uid", "==", auth.currentUser.uid));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => { 
-          console.log (doc.data())
           setUserObj({...doc.data()})
         }); 
       }

@@ -7,6 +7,7 @@ import { doc, deleteDoc } from "firebase/firestore";
 import DeleteModal from '../components/deleteModal';
 import UpdateBlog from '../components/UpdateBlog';
 import { updateDoc } from "firebase/firestore";
+import userimage from '../assets/user.png'
 
 
 const Dashboard = () => {
@@ -214,8 +215,8 @@ const Dashboard = () => {
         {mainLoader ? <div className='text-center w-full mt-5'><span className="loading loading-spinner loading-lg text-[#7749f8]"></span></div>: blogArray.length > 0 ? blogArray.map ((items , index)=> {
           return <div key={items.docid} className='flex w-[100%] px-7 py-5 flex-col bg-[#ffffff] justify-center items-start gap-4 rounded-lg shadow-lg  min-h-[40vh] min-w-[300px]'>
             <div className='flex justify-start items-start gap-4 w-full pe-5'>
-              <div className='text-white bg-[#7749f8] rounded-lg p-5 flex justify-center items-center'>
-                img
+              <div className='text-white bg-[#7749f8] w-[70px] rounded-lg flex justify-center items-center'>
+                <img src={userimage} alt="logo" className='w-100'/>
               </div>
               <div className='flex flex-col justify-start items-start w-[80%]'>
                 <p className='font-bold text-2xl w-full break-words'>{items.title}</p>
